@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Link Undangan WA Personalisasi - Terang Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wa-green: #101211; /* Warna Aksen WhatsApp */
+            --wa-dark-green: #014b42;
+            --primary-blue: #92c2f6; 
+            --light-bg: #f8f9fa; /* Latar belakang terang */
+            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Shadow lebih ringan */
+            --border-radius: 10px;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            /* TEMA TERANG */
+            background-color: var(--light-bg); /* Latar belakang utama terang */
+            color: #333; /* Teks gelap */
+        }
+        
+        .container { 
+            background-color: white; /* Kontainer putih */
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--box-shadow); 
+        }
+
+        h1 { 
+            color: #333; /* Judul gelap */
+            text-align: center; 
+            margin-bottom: 5px;
+            font-weight: 700;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .logo {
+            max-width: 180px; 
+            height: auto;
+            margin-bottom: 10px; 
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6c757d; 
+            margin-bottom: 25px;
+        }
+
+        label { 
+            display: block; 
+            margin-top: 20px; 
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057; /* Label gelap */
+        }
+        
+        textarea, input[type="text"] { 
+            width: 100%; 
+            padding: 12px; 
+            /* INPUT TERANG */
+            background-color: white;
+            color: #333;
+            border: 1px solid #ced4da; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            transition: border-color 0.3s;
+            font-size: 14px;
+        }
+        
+        textarea:focus, input[type="text"]:focus {
+            border-color: var(--wa-green); 
+            outline: none;
+        }
+        
+        .placeholder-hint {
+            /* HINT TERANG (Kuning Pudar) */
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #ffeeba;
+        }
+
+        /* --- Tombol Utama --- */
+        button#generate-btn { 
+            width: 100%;
+            /* TOMBOL UTAMA HIJAU WA */
+            background-color: var(--wa-green); 
+            color: white; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.1s;
+            letter-spacing: 0.5px;
+        }
+        
+        button#generate-btn:hover { 
+            background-color: var(--wa-dark-green); 
+            transform: translateY(-1px);
+        }
+        
+        button#generate-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* --- Hasil Output --- */
+        #hasil-output { 
+            margin-top: 30px; 
+            padding-top: 20px; 
+            border-top: 2px solid #e9ecef; /* Garis pemisah terang */
+        }
+
+        h2 {
+            color: #343a40;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .link-item { 
+            /* LINK ITEM TERANG (Hijau Pucat) */
+            background-color: #e6ffe6; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 12px; 
+            word-wrap: break-word;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #d4edda;
+        }
+        
+        .link-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 10px; 
+            margin-top: 10px;
+        }
+
+        .link-actions button, .link-actions .wa-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.3s, background-color 0.3s;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+        }
+        
+        .copy-btn { 
+            /* TOMBOL SALIN (Biru Primer) */
+            background-color: var(--primary-blue); 
+            color: white;
+        }
+
+        .copy-btn:hover { 
+            background-color: #0056b3; 
+        }
+
+        .wa-btn { 
+            /* TOMBOL KIRIM WA (Hijau WA) */
+            background-color: var(--wa-green); 
+            color: white; 
+            white-space: nowrap; 
+        }
+
+        .wa-btn:hover {
+            background-color: var(--wa-dark-green);
+        }
+        
+        .link-text-container {
+            font-size: 12px;
+            color: #555; 
+            padding: 5px;
+            border: 1px dashed #ddd; 
+            background-color: #f0fff0;
+            border-radius: 4px;
+        }
+        
+        .link-text-container a {
+            color: var(--primary-blue); 
+            word-break: break-all;
+        }
+        
+        strong.guest-name {
+            font-size: 18px;
+            color: #333; 
+            font-weight: 600;
+        }
+        
+        /* Responsif Sederhana */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .link-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .link-actions {
+                width: 100%;
+                margin-top: 10px;
+                gap: 5px;
+            }
+            .link-actions button, .link-actions .wa-btn {
+                flex-grow: 1;
+            }
+            .logo { 
+                max-width: 120px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <img src="1.png" alt="Logo" class="logo">
+            Generator Undangan WA
+        </h1>
+        <div class="placeholder-hint">
+            Gunakan **<code>{{NAMA_TAMU}}</code>** sebagai placeholder di template pesan.
+        </div>
+
+        <label for="template-pesan">Template Pesan Undangan:</label>
+        <textarea id="template-pesan" rows="5">Yth. Bapak/Ibu {{NAMA_TAMU}},
+Kami mengundang Anda ke acara pernikahan kami.
+Link Undangan: [Link Undangan Digital Anda]
+Hormat kami.</textarea>
+        
+        <label for="daftar-tamu">Daftar Nama Tamu (Satu Nama Per Baris):</label>
+        <textarea id="daftar-tamu" rows="8">Eaxmple
+            
+        </textarea>
+
+        <button id="generate-btn" onclick="generateLinks()"> Buat Link WA Personalisasi</button>
+
+        <div id="hasil-output">
+            <h2>Hasil Link Undangan</h2>
+            <div id="output-list">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi Utama untuk menghasilkan link WA
+        function generateLinks() {
+            const templatePesan = document.getElementById('template-pesan').value;
+            const daftarTamuInput = document.getElementById('daftar-tamu').value;
+            const outputList = document.getElementById('output-list');
+            outputList.innerHTML = ''; 
+
+            if (!templatePesan || !daftarTamuInput) {
+                alert('Template pesan dan daftar tamu tidak boleh kosong!');
+                return;
+            }
+
+            const daftarTamu = daftarTamuInput.split('\n')
+                                                .map(nama => nama.trim()) 
+                                                .filter(nama => nama.length > 0); 
+
+            if (daftarTamu.length === 0) {
+                alert('Mohon masukkan minimal satu nama tamu.');
+                return;
+            }
+
+            daftarTamu.forEach(namaTamu => {
+                let pesanPersonal = templatePesan.replace("{{NAMA_TAMU}}", namaTamu).trim();
+                let pesanEncoded = encodeURIComponent(pesanPersonal);
+                let waLink = `https://wa.me/?text=${pesanEncoded}`;
+                
+                const linkItem = document.createElement('div');
+                linkItem.className = 'link-item';
+                
+                linkItem.innerHTML = `
+                    <div class="link-header">
+                        <strong class="guest-name">Kepada: ${namaTamu}</strong>
+                    </div>
+                    <div class="link-text-container">
+                        <small>Link:</small> <a href="${waLink}" target="_blank">${waLink.length > 80 ? waLink.substring(0, 80) + '...' : waLink}</a>
+                    </div>
+                    <div class="link-actions">
+                        <a href="${waLink}" target="_blank" class="wa-btn">💬 Kirim ke WA</a>
+                        <button class="copy-btn" onclick="copyToClipboard('${waLink}')">📋 Salin Link</button>
+                    </div>
+                `;
+
+                outputList.appendChild(linkItem);
+            });
+        }
+
+        // Fungsi untuk menyalin link ke clipboard
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Link berhasil disalin ke clipboard!');
+                }).catch(err => {
+                    console.error('Gagal menyalin (Clipboard API): ', err);
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+        
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'berhasil' : 'gagal';
+                alert('Link berhasil disalin secara manual ke clipboard!');
+            } catch (err) {
+                console.error('Gagal menyalin (manual): ', err);
+                alert('Gagal menyalin link. Mohon salin manual.');
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>
