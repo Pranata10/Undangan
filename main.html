@@ -9,7 +9,7 @@
         :root {
             --wa-green: #101211; /* Warna Aksen WhatsApp */
             --wa-dark-green: #014b42;
-            --primary-blue: #92c2f6; 
+            --primary-blue: #007bff; /* Biru Primer yang standar */
             --light-bg: #f8f9fa; /* Latar belakang terang */
             --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Shadow lebih ringan */
             --border-radius: 10px;
@@ -20,20 +20,19 @@
             max-width: 900px; 
             margin: 0 auto; 
             padding: 20px; 
-            /* TEMA TERANG */
-            background-color: var(--light-bg); /* Latar belakang utama terang */
-            color: #333; /* Teks gelap */
+            background-color: var(--light-bg); 
+            color: #333; 
         }
         
         .container { 
-            background-color: white; /* Kontainer putih */
+            background-color: white; 
             padding: 30px; 
             border-radius: var(--border-radius); 
             box-shadow: var(--box-shadow); 
         }
 
         h1 { 
-            color: #333; /* Judul gelap */
+            color: #333; 
             text-align: center; 
             margin-bottom: 5px;
             font-weight: 700;
@@ -60,13 +59,12 @@
             margin-top: 20px; 
             margin-bottom: 5px;
             font-weight: 600;
-            color: #495057; /* Label gelap */
+            color: #495057; 
         }
         
         textarea, input[type="text"] { 
             width: 100%; 
             padding: 12px; 
-            /* INPUT TERANG */
             background-color: white;
             color: #333;
             border: 1px solid #ced4da; 
@@ -82,7 +80,6 @@
         }
         
         .placeholder-hint {
-            /* HINT TERANG (Kuning Pudar) */
             background-color: #fff3cd;
             color: #856404;
             padding: 10px;
@@ -96,7 +93,6 @@
         /* --- Tombol Utama --- */
         button#generate-btn { 
             width: 100%;
-            /* TOMBOL UTAMA HIJAU WA */
             background-color: var(--wa-green); 
             color: white; 
             padding: 15px; 
@@ -123,7 +119,7 @@
         #hasil-output { 
             margin-top: 30px; 
             padding-top: 20px; 
-            border-top: 2px solid #e9ecef; /* Garis pemisah terang */
+            border-top: 2px solid #e9ecef; 
         }
 
         h2 {
@@ -134,11 +130,10 @@
         }
         
         .link-item { 
-            /* LINK ITEM TERANG (Hijau Pucat) */
             background-color: #e6ffe6; 
             padding: 15px; 
             border-radius: 8px; 
-            margin-bottom: 12px; 
+            margin-bottom: 15px; 
             word-wrap: break-word;
             display: flex;
             flex-direction: column;
@@ -158,7 +153,7 @@
             margin-top: 10px;
         }
 
-        .link-actions button, .link-actions .wa-btn {
+        .link-actions button, .link-actions a {
             padding: 8px 15px;
             border-radius: 6px;
             cursor: pointer;
@@ -170,21 +165,31 @@
             border: none;
         }
         
-        .copy-btn { 
-            /* TOMBOL SALIN (Biru Primer) */
-            background-color: var(--primary-blue); 
+        .copy-wa-btn { 
+            background-color: #007bff; 
             color: white;
+            flex-grow: 1;
         }
 
-        .copy-btn:hover { 
+        .copy-wa-btn:hover { 
             background-color: #0056b3; 
+        }
+        
+        .copy-undangan-btn { 
+            background-color: #ffc107; /* Kuning untuk link undangan */
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .copy-undangan-btn:hover { 
+            background-color: #e0a800; 
         }
 
         .wa-btn { 
-            /* TOMBOL KIRIM WA (Hijau WA) */
             background-color: var(--wa-green); 
             color: white; 
             white-space: nowrap; 
+            flex-grow: 2; /* Lebih besar */
         }
 
         .wa-btn:hover {
@@ -198,6 +203,7 @@
             border: 1px dashed #ddd; 
             background-color: #f0fff0;
             border-radius: 4px;
+            margin-bottom: 5px;
         }
         
         .link-text-container a {
@@ -224,9 +230,11 @@
                 width: 100%;
                 margin-top: 10px;
                 gap: 5px;
+                flex-wrap: wrap; 
             }
-            .link-actions button, .link-actions .wa-btn {
+            .link-actions button, .link-actions a {
                 flex-grow: 1;
+                min-width: 45%; 
             }
             .logo { 
                 max-width: 120px; 
@@ -238,22 +246,410 @@
     <div class="container">
         <h1>
             <img src="1.png" alt="Logo" class="logo">
-            Generator Undangan WA
+            Generator Link Undangan WA
         </h1>
         <div class="placeholder-hint">
             Gunakan **<code>{{NAMA_TAMU}}</code>** sebagai placeholder di template pesan.
         </div>
-
-        <label for="template-pesan">Template Pesan Undangan:</label>
-        <textarea id="template-pesan" rows="5">Yth. Bapak/Ibu {{NAMA_TAMU}},
-Kami mengundang Anda ke acara pernikahan kami.
-Link Undangan: [Link Undangan Digital Anda]
-Hormat kami.</textarea>
         
-        <label for="daftar-tamu">Daftar Nama Tamu (Satu Nama Per Baris):</label>
-        <textarea id="daftar-tamu" rows="8">Eaxmple
-            
+        <label for="base-undangan-link">Link Undangan Utama Anda (URL Basis, cth: https://nikah.com/yuda-regitha):</label>
+        <input type="text" id="base-undangan-link" value="https://yuda-regitha.vercel.app/" placeholder="Masukkan URL undangan online Anda">
+
+
+        <label for="template-pesan">Template Pesan Undangan (Termasuk Link Undangan Utama):</label>
+        <textarea id="template-pesan" rows="8">Kepada Yth.
+Bapak/Ibu/Saudara/i/Dharma Semeton
+{{NAMA_TAMU}}
+
+Om Swastyastu.
+Kami bermaksud melaksanakan Upacara Pawiwahan putra-putri kami: Kadek Yuda Kumala T.D. S.H. dengan A.A. Istri Regitha Cahyani S.S.
+
+Hari, Tanggal: Jumat, 09 Januari 2026
+Waktu: 13.00 WITA - Selesai
+Tempat : Jalan MAwar No. 8, Kelurahan Cempaga, Kabupaten Bangli
+
+Untuk melihat lokasi, rincian acara, dan memberikan konfirmasi kehadiran (RSVP), silakan klik tautan undangan personal Anda di bawah ini:
+[LINK_UNDANGAN_PERSONAL]
+
+Sesuai ajaran Veda: "Moksartham Jagadhita Ya Ca Iti Dharma" (Tujuan hidup adalah mencapai kebahagiaan rohani dan kesejahteraan duniawi). Semoga kehadiran Anda menjadi bagian dari Yadnya kami.
+
+Om Shanti Shanti Shanti Om
+Hormat Kami, Keluarga Besar Kadek Yuda & A.A. Istri Regitha.        
         </textarea>
+
+        <label for="daftar-tamu">Daftar Nama Tamu (Satu Nama Per Baris, Contoh: I Gede Agung/Luh Putu Ratih/Bpk. Made)</label>
+        <textarea id="daftar-tamu" rows="8">Ovie
+Ovie
+Made Bentar
+Angga Purnama
+Ari Angreni
+Awan
+Gus Lingga
+Fitri
+Suarnata
+Teguh
+Intan
+Ming Desi
+Mang Oci
+Ayu Gaury
+Apriosa & istri
+Irdila
+Basma Redana
+Opang Risky & Ayu Melody
+Rya
+Irna
+Mery
+Susi
+Yande
+Anik
+Dwipa
+Ekadana & Mita
+Krisna Putra
+Wayan Tirta
+Widya Daniswari
+Diah Wiradnyani
+Hendra
+Mang S
+Oning
+Oka Aditya
+Gung Yudis
+Basir
+Dwija
+Widya 
+Thio Tigana
+Gus Difa & Dayu Sita
+Jodi Tangkas
+Comang
+Gung Diah
+Pande Trianingsih
+Wiranata
+Dyan & Dpunk
+Dharma
+Wulan PT
+Emon & WDT
+Ketut Arya Kepakisan
+Aldi Setiawan
+Kadek Bom
+Dek Kuir
+Nolet
+Riko
+Podol
+Agus Diwan
+Sinta
+Irpan Pradita
+De Arya Bipatrawan 
+Sinta
+Mamo & Devi
+Cok Ta
+Gek I
+Yuli Mahes
+Irena & Suami
+Dawayu Sintya
+Made Januarinata
+Dinda Krisnanti
+Ardanayasa
+Yuda Ambara
+Codet
+Bayu Mahardika
+Koming
+Adi Brata
+Agus Ateng
+Yogik
+Leovani
+Gopal
+Kompyang
+Pasek Sulaksana
+Setiabudi
+Dwika 
+Pesek
+Dika
+Winda Ayundari
+Sakila & Suami
+Awin 
+Graha
+Govin
+Purnama
+Ayunita
+Bolo 
+Fajar & Luh Tu
+Yomel
+Meilani Pramesti & Suami
+Taris & Suami
+Dedi Maestara
+Aswin
+Dipta
+Kuyem
+Dewi Prasanti
+Gung Jyoti
+Dogler
+Diandifa
+Nanda
+Devi Sulistyani
+Yady
+Ayu Tri Puspitasari
+Ernayanti 
+Mbok Luh Luenk
+Gus Evam
+Sukur Adi Guna
+Sukma & Agung
+Agung Dina
+Luh Ade
+Eva Agrayunita
+Anjali
+Widya
+Sagara
+Pramudita
+Buna
+De Ari
+Made Arindra
+Pirlan
+Setiawati
+kristia
+Satya
+Lingga
+Gung Yoga
+Diantarisa
+Dayu Mang
+Dewi 
+Parta
+Dek Sri
+Dewi Wigantari
+Desak Anom
+Juwita
+Evi Mascita
+Mega
+Yeni
+Ade Jayanti
+Ayu Sinta
+Dewayu 
+Mia
+Desi 
+Renal
+Suli
+Ateng
+Roby
+Jodi Isvara
+Radit
+Mang Andi
+Gopal
+Bara
+Tari
+Novi
+Dwipa
+Desur
+Iyad
+Arjaya
+Indra & Indah
+Omang Sri
+Gek Indah
+Gung Gek Sita
+Pigayanti
+Ayukus 
+Nanda Oktaviani
+Sopo
+Ayu Widi
+Cok Anom
+Eka Dungdung
+Virda
+Sangade
+Sanganom
+Agung Irma
+Surya Sidembunut
+Nia Maharani
+Mb Dwi Yangapi
+Otat
+Lukis
+Ayu Hagandari
+Nyoman Edi
+Eli
+Sangayu Krisnadewi
+Sangayu Agustini
+Mirah Widyantari
+Dayu Khasmana
+Indah Sintya Devi
+Dayu Krisna & Suami
+Cok Candani
+Sinta Revi Kesuma
+Ngurah Bego
+Yoga Wiguna
+Galang
+Sekar
+Gus Lintang
+Gus Agung
+Natalia
+Refortana Nida
+Dimas
+Barada
+Bobo Darma Kusuma
+Yuni Sartika
+Risa
+Eka Tangkas
+Dwi Pradnyani
+Agung Mianggi
+Marlow
+Aryanti Apsari
+Awin 
+Valdi
+Yuda & Punky
+Dek Can
+Mikha
+Nurmala 
+Gung Istri Tirta
+Agus Jentot
+Cok Danayasa
+Rama
+Yuda 
+Angga Kusuma
+Indra Wicaksana
+Dayu Ita
+Gita & Ari
+Yudhis dan & Ista
+Aldi Wira Kusuma
+Desindu
+Kesya
+Lezy & Dejus
+Maudy
+Sayoga
+Merta Jaya
+Widnyana
+Ajeng
+Misol
+Wahyu
+Tude
+Gus Wisnu
+Yetta
+Jody Wirantara
+Satria Wibawa
+May Linda
+Yuliantini
+Suarputra
+Yogik
+Putu Angga
+Utari
+Debel
+Dek Brahes
+Yoga Suter
+Lisa Ekonomi
+Reska
+Tya
+Angga Sedit
+Pariasa 
+Malik
+Edo
+Putu Surya
+Wira Mahendra
+Agung Ayu Nadya
+Listhya Dewi
+Gung Maha
+Nia
+Arya Ucil
+Wah Jun
+Pande
+Tengal
+Wiratama
+Wiranata
+Alit Mahardini
+Eka & Mitha
+Putu Kembar
+Gus Ari & Tunita
+Angga Yudiastara
+Rika Ratmana
+Wibek
+Luhde Rahmi
+Arya 
+Dede
+Agung Vibukti
+Tiwi
+Budhi Septian
+Intan
+Made Nata
+Dek Gun & Pegi
+Arya Semar
+Yeni
+Diah
+Wulan
+Gita Gayatri
+Gung Jaya
+Damaya
+Oming Wulandari
+Dewa Andika & Istri
+Putri
+Ciput
+Mirah Dwiyanti 
+Agung Febri
+Bhisma Ananta 
+Agus
+Agung Stiti
+Desak Dewi
+Kak Yuda
+Mirah
+Puspadevi
+Gita Maharani
+Bela
+Desak Chelsi
+Udayani
+Tiara
+Kesya
+Ita
+Mb Tu Ayu
+Mb Dian
+Jik Kutha Heriawan
+Anggi
+Sangayu
+Srik
+Bintang
+Ayu Agung
+Yande
+Sena
+Putra
+Nia
+Desak Okta
+Viona Junita
+paput
+Gek Sintya
+Dara
+Paska
+Bayu Kubera
+Pradnyani Dea
+Restu
+Dewayu Mirna
+Indra
+Deni Widyantara
+Suma Maharani
+Mang Gajah
+Gayatri
+Kak Dewa Suganda
+Pak Yan Kariasa
+Pak Juni Pascaya
+Mang Oci
+Gung Dalem
+Gus Dita
+Sinta
+Andini
+Andri
+Tole
+De Adi
+Dek Arsa
+Riski
+Mayani
+Yolanda
+Intan
+Mita
+Vina
+Nova
+Agus
+Reno
+Dede Satya
+Dewa De
+Ema
+Diah Neva
+Bayu Nugraha
+PPI Angkatan 2023
+PPI Angkatan 2024
+PPI Angkatan 2025
+
+
+</textarea>
 
         <button id="generate-btn" onclick="generateLinks()"> Buat Link WA Personalisasi</button>
 
@@ -269,11 +665,12 @@ Hormat kami.</textarea>
         function generateLinks() {
             const templatePesan = document.getElementById('template-pesan').value;
             const daftarTamuInput = document.getElementById('daftar-tamu').value;
+            const baseUndanganLink = document.getElementById('base-undangan-link').value.trim();
             const outputList = document.getElementById('output-list');
             outputList.innerHTML = ''; 
 
-            if (!templatePesan || !daftarTamuInput) {
-                alert('Template pesan dan daftar tamu tidak boleh kosong!');
+            if (!templatePesan || !daftarTamuInput || !baseUndanganLink) {
+                alert('Semua kolom input (Template, Daftar Tamu, Link Utama) tidak boleh kosong!');
                 return;
             }
 
@@ -287,23 +684,40 @@ Hormat kami.</textarea>
             }
 
             daftarTamu.forEach(namaTamu => {
-                let pesanPersonal = templatePesan.replace("{{NAMA_TAMU}}", namaTamu).trim();
+                // 1. Buat Link Undangan Personalisasi (dengan parameter ?to=NamaTamu)
+                // Ganti spasi dengan + untuk format URL Query yang baik
+                const namaTamuEncodedForURL = namaTamu.replace(/\s+/g, '+'); 
+                const undanganLinkPersonal = `${baseUndanganLink}?to=${namaTamuEncodedForURL}`;
+                
+                // 2. Buat Template Pesan WA 
+                // Ganti placeholder {{NAMA_TAMU}} dan [LINK_UNDANGAN_PERSONAL] di template
+                let pesanPersonal = templatePesan
+                                    .replace(/{{NAMA_TAMU}}/g, namaTamu)
+                                    .replace(/\[LINK_UNDANGAN_PERSONAL\]/g, undanganLinkPersonal)
+                                    .trim();
+
+                // 3. Buat Link WA (dengan pesanEncoded)
                 let pesanEncoded = encodeURIComponent(pesanPersonal);
                 let waLink = `https://wa.me/?text=${pesanEncoded}`;
                 
                 const linkItem = document.createElement('div');
                 linkItem.className = 'link-item';
                 
+                // Tampilkan nama tamu, link WA, dan link Undangan Personal
                 linkItem.innerHTML = `
                     <div class="link-header">
                         <strong class="guest-name">Kepada: ${namaTamu}</strong>
                     </div>
                     <div class="link-text-container">
-                        <small>Link:</small> <a href="${waLink}" target="_blank">${waLink.length > 80 ? waLink.substring(0, 80) + '...' : waLink}</a>
+                        <small><strong>Link Undangan Personal:</strong></small> <a href="${undanganLinkPersonal}" target="_blank">${undanganLinkPersonal}</a>
+                    </div>
+                    <div class="link-text-container">
+                        <small><strong>Link WA:</strong></small> <a href="${waLink}" target="_blank">${waLink.length > 80 ? waLink.substring(0, 80) + '...' : waLink}</a>
                     </div>
                     <div class="link-actions">
                         <a href="${waLink}" target="_blank" class="wa-btn">💬 Kirim ke WA</a>
-                        <button class="copy-btn" onclick="copyToClipboard('${waLink}')">📋 Salin Link</button>
+                        <button class="copy-wa-btn" onclick="copyToClipboard('${waLink}')">📋 Salin Link WA</button>
+                        <button class="copy-undangan-btn" onclick="copyToClipboard('${undanganLinkPersonal}')">📋 Salin Link Undangan</button>
                     </div>
                 `;
 
@@ -311,7 +725,7 @@ Hormat kami.</textarea>
             });
         }
 
-        // Fungsi untuk menyalin link ke clipboard
+        // Fungsi untuk menyalin link ke clipboard (tidak diubah)
         function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => {
